@@ -117,7 +117,8 @@ run.server.query.inner.alt <- function(scriptname){
     }
 }
 #--------------------------------------------------------------------------------------------------
-query.database <- function(sql.command, conn=NULL, db.credentials=NULL){
+query.database <- function(sql.command, conn=NULL, db.credentials=NULL, wait = 0){
+    print(sql.command)
     if(is.null(conn) || !DBI::dbIsValid(conn) ){ #check if no connector has been provided, or if the connector doesnt work
         #print("no connector provided, creating one here connecting ")
         if(exists("conn", envir = .GlobalEnv))conn <- get("conn", envir = .GlobalEnv) #check if a connector already exist at global level
@@ -131,6 +132,7 @@ query.database <- function(sql.command, conn=NULL, db.credentials=NULL){
     }
     #else{ print("connector provided")}
 	for(n in 1:length(sql.command)) {
+        if(wait>0)Sys.sleep(wait)
         res <- tryCatch(suppressWarnings(DBI::dbSendStatement(conn,sql.command[n])),
                     error=function(e){
                         print(e)
@@ -229,4 +231,4 @@ msp <- function(password) {
     paste0(maskp[1], paste0(rep("*", length(maskp) - 2), collapse = ""), maskp[length(maskp)])
 }
 
-disconnect <- function(drv="MySQL") sapply(DBI::dbListConnections(DBI::dbDriver(drv)),dbDisconnect)
+disconnect <- function(drv="MySQL") sapply(DBI::dbListConnections(DBI::dbDriver(drv)),DBI::dbDisconnect)
