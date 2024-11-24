@@ -22,6 +22,7 @@ for(table in tables){
 	d$user_last_update <- '\\N'
 
 	nc <- 25
+    ## truncate string more than 25 char
 	for(n in 1:ncol(d)){
 		i <- nchar(d[,n])>nc
 		d[i,n] <- paste(substr(d[i,n],1,nc),'...',sep='')

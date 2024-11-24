@@ -31,6 +31,7 @@ create.markdown.for.single.table <- function(d.tables, d.cols, table.name){
 return(text)}
 #--------------------------------------------------------------------------------------------------
 create.markdown.for.several.tables <- function(d.tables, d.cols, table.names, file){
+    require(knitr)
 	
 	text <- c()
 	for(n in 1:length(table.names)){
@@ -38,8 +39,18 @@ create.markdown.for.several.tables <- function(d.tables, d.cols, table.names, fi
 		table.text <- create.markdown.for.single.table(d.tables, d.cols, table.name)	
 		text <- c(text, table.text)
 		}
-	writeLines(text, con=file, useBytes = TRUE )
-return(NULL)}
+	#writeLines(text, con=file, useBytes = TRUE )
+    tmpfile=paste0(file,".rmd")
+    print(tmpfile)
+    html_file <- sub("\\.rmd$", ".html", tmpfile)
+    writeLines(text,tmpfile)
+    knitr::knit2html(input = tmpfile, output = html_file)
+    knitr::pandoc(input = html_file, output = pdf_file)
+    print("aa")
+    knitr::knit2pdf(input = tmpfile, output = html_file)
+    unlink(tmpfile)
+
+return(text)}
 #--------------------------------------------------------------------------------------------------
 create.markdown.for.table.content <- function(x, d.cols, file){
        
@@ -53,7 +64,21 @@ create.markdown.for.table.content <- function(x, d.cols, file){
 		text <- c(text,txt)
 		}
 	text <- c(text, '***')
-	writeLines(text, con=file, useBytes = TRUE )
+    tmpfile=paste0(file,".rmd")
+    html_file <- sub("\\.rmd$", ".html", tmpfile)
+    pdf_file <- sub("\\.rmd$", ".pdf", tmpfile)
+    writeLines(text,tmpfile)
+    #knitr::knit2html(input = tmpfile, )
+    #print("aa"p)
+    print(tmpfile)
+    rmarkdown::render(input = tmpfile,output_format="pdf_document",latex_engine="lualatex")
+    print("aa")
+    knitr::pandoc(input = html_file, output = pdf_file)
+    print("aa")
+    knitr::knit2pdf(input = tmpfile, output = html_file)
+    knitr::knit2pdf(input = tmpfile, output = pdf_file)
+    print(tmpfile)
+    unlink(tmpfile)
 return(NULL)}
 #-----------------------------------------------------------------------------------------
 get.tables.from.backup <- function(file){

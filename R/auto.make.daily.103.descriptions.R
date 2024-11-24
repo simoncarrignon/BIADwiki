@@ -19,7 +19,7 @@ temp <- all[grepl('_copy|_update', all)]
 standard <- all[!all%in%c(zprivate,zoptions,temp)]
 
 # construct a single markdown file for all standard tables and zoptions
-create.markdown.for.several.tables(d.tables, d.cols, table.names = standard, file = '../../Gists/table_comments/standard/standard.md')
-create.markdown.for.several.tables(d.tables, d.cols, table.names = zoptions, file = '../../Gists/table_comments/zoptions/zoptions.md')
+u=create.markdown.for.several.tables(d.tables, d.cols, table.names = standard, file = '../tools/table_comments/standard')
+u=create.markdown.for.several.tables(d.tables, d.cols, table.names = zoptions, file = '../tools/table_comments/zoptions')
 disconnect()
 #-----------------------------------------------------------------------------------------

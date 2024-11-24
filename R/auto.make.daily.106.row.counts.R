@@ -20,5 +20,5 @@ standard <- subset(standard, TABLE_ROWS>10)
 lookup <- subset(d, TABLE_NAME%in%lookup)
 lookup <- subset(lookup, TABLE_ROWS>1)
 
-create.markdown.for.table.content(standard, d.cols, file = '../../Gists/summary_stats/row_counts/row_counts.md')
+create.markdown.for.table.content(standard, d.cols, file = '../tools/summary_stats/row_counts')
 #-----------------------------------------------------------------------------------------
