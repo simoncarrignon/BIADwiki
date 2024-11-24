@@ -41,13 +41,9 @@ create.markdown.for.several.tables <- function(d.tables, d.cols, table.names, fi
 		}
 	#writeLines(text, con=file, useBytes = TRUE )
     tmpfile=paste0(file,".rmd")
-    print(tmpfile)
     html_file <- sub("\\.rmd$", ".html", tmpfile)
     writeLines(text,tmpfile)
     knitr::knit2html(input = tmpfile, output = html_file)
-    knitr::pandoc(input = html_file, output = pdf_file)
-    print("aa")
-    knitr::knit2pdf(input = tmpfile, output = html_file)
     unlink(tmpfile)
 
 return(text)}
@@ -68,15 +64,6 @@ create.markdown.for.table.content <- function(x, d.cols, file){
     html_file <- sub("\\.rmd$", ".html", tmpfile)
     writeLines(text,tmpfile)
     knitr::knit2html(input = tmpfile, output = html_file)
-    ##print("aa"p)
-    #print(tmpfile)
-    #rmarkdown::render(input = tmpfile,output_format="pdf_document",latex_engine="lualatex")
-    #print("aa")
-    #knitr::pandoc(input = html_file, output = pdf_file)
-    #print("aa")
-    #knitr::knit2pdf(input = tmpfile, output = html_file)
-    #knitr::knit2pdf(input = tmpfile, output = pdf_file)
-    #print(tmpfile)
     unlink(tmpfile)
 return(NULL)}
 #-----------------------------------------------------------------------------------------
