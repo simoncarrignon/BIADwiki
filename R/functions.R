@@ -39,12 +39,8 @@ create.markdown.for.several.tables <- function(d.tables, d.cols, table.names, fi
 		table.text <- create.markdown.for.single.table(d.tables, d.cols, table.name)	
 		text <- c(text, table.text)
 		}
-	#writeLines(text, con=file, useBytes = TRUE )
-    tmpfile=paste0(file,".rmd")
-    html_file <- sub("\\.rmd$", ".html", tmpfile)
-    writeLines(text,tmpfile)
-    knitr::knit2html(input = tmpfile, output = html_file)
-    unlink(tmpfile)
+    html_file <- paste0(file,"html")
+    writeLines( knitr::knit2html(text = text), html_file)
 
 return(text)}
 #--------------------------------------------------------------------------------------------------
@@ -60,11 +56,8 @@ create.markdown.for.table.content <- function(x, d.cols, file){
 		text <- c(text,txt)
 		}
 	text <- c(text, '***')
-    tmpfile=paste0(file,".rmd")
-    html_file <- sub("\\.rmd$", ".html", tmpfile)
-    writeLines(text,tmpfile)
-    knitr::knit2html(input = tmpfile, output = html_file)
-    unlink(tmpfile)
+    html_file <- paste0(file,"html")
+    writeLines( knitr::knit2html(text = text), html_file)
 return(NULL)}
 #-----------------------------------------------------------------------------------------
 get.tables.from.backup <- function(file){
