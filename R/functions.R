@@ -39,8 +39,9 @@ create.markdown.for.several.tables <- function(d.tables, d.cols, table.names, fi
 		table.text <- create.markdown.for.single.table(d.tables, d.cols, table.name)	
 		text <- c(text, table.text)
 		}
-    html_file <- paste0(file,"html")
-    writeLines( knitr::knit2html(text = text), html_file)
+
+    html_file <- paste0(file,".html")
+    writeLines(knitr::knit2html(text = text), con = html_file,useBytes = TRUE)
 
 return(text)}
 #--------------------------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ create.markdown.for.table.content <- function(x, d.cols, file){
 		text <- c(text,txt)
 		}
 	text <- c(text, '***')
-    html_file <- paste0(file,"html")
+    html_file <- paste0(file,".html")
     writeLines( knitr::knit2html(text = text), html_file)
 return(NULL)}
 #-----------------------------------------------------------------------------------------
